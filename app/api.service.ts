@@ -3,6 +3,7 @@ import { Http, Request, Response, RequestOptions, RequestMethod, Headers } from 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
+import { Quote } from './quote';
 
 @Injectable()
 export class ApiService {
@@ -12,19 +13,22 @@ export class ApiService {
         // EMPTY
     }
 
+
+    /// Public Interface
+
     public GetBitcoinValue() : Observable<any>{
 
-        var returnValue : any;
-        var requestUrl = 'https://bravenewcoin-v1.p.mashape.com/convert?from=btc&qty=1&to=usd';
+        let returnValue : any;
+        let requestUrl = 'https://bravenewcoin-v1.p.mashape.com/convert?from=btc&qty=1&to=usd';
         
-        var localHeaders = new Headers({     
+        let localHeaders = new Headers({     
             
             'X-Mashape-Key' : 'AXcYZwz5QLmshkiUwJauIltVntULp1LmwjJjsnSQjDK1xB15p7',
             'Accept' : 'application/json'
 
         }); 
 
-        var requestOptions = new RequestOptions({
+        let requestOptions = new RequestOptions({
             method : RequestMethod.Post,
             url: requestUrl,
             headers: localHeaders
@@ -37,6 +41,34 @@ export class ApiService {
         return returnValue;
     }
 
+    public GetRandomQuote() : Observable<Quote> {
+
+        let requestUrl = 'https://andruxnet-random-famous-quotes.p.mashape.com/?cat=famous';
+
+        let localHeaders = new Headers({     
+            
+            'X-Mashape-Key' : 'AXcYZwz5QLmshkiUwJauIltVntULp1LmwjJjsnSQjDK1xB15p7',
+            'Content-Type' : 'application/x-www-form-urlencoded',
+            'Accept' : 'application/json',
+            }); 
+
+        let requestOptions = new RequestOptions({
+            method : RequestMethod.Post,
+            url: requestUrl,
+            headers: localHeaders
+        });
+
+
+        let response = this.http.request(requestUrl, requestOptions).
+        map(this.mapResponse).
+        catch(this.handleError)
+
+        return response;
+    }
+
+
+    /// Mapping/Error-handling
+
     private mapResponse(res : Response) {
 
         let body = res.json();
@@ -45,12 +77,14 @@ export class ApiService {
     }
 
     private handleError (error: any) {
-    // In a real world app, we might use a remote logging infrastructure
-    // We'd also dig deeper into the error to get a better message
+    // Q: how to dig deeper into the error to get a better message?
+    
     console.debug('handling error');
+    
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    
     console.error(errMsg); // log to console instead
-    return errMsg;
+    return Observable.throw(errMsg);
   }
 }
