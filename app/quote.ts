@@ -1,6 +1,8 @@
 export class Quote {
 
-    constructor(public quote : string, public author : string, public category : string) {
+    constructor(public quote : string = null,
+        public author : string = null,
+        public category : string = null) {
 
         // EMPTY
     }

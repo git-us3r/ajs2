@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { QuoteComponent } from './quote.component';
+import { BTCValueComponent } from './btcvalue.component';
 
 
 @Component({
     selector: 'my-app',
-    template: '<h1>{{Header}}</h1><my-quote></my-quote>',
+    styleUrls : ['app/app.component.styles.css'],
+    templateUrl: 'app/app.component.html',
 })
 export class AppComponent {
 

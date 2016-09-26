@@ -1,0 +1,4 @@
+<div class="card card-block">
+    <h3 class="card-title">Bitcoin (BTC) Value : {{ btcValue.to_quantity | currency: 'USD': true }}</h3>
+    <h5 class="card-subtitle">As of: {{ btcValue.request_date | date:'medium' }}</h5>
+</div>
