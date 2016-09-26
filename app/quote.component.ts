@@ -4,9 +4,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
 import { Quote } from './quote';
+import { ApiService } from './api.service';
 
 @Component({
     selector: 'my-quote',
+    providers : [ApiService],
     template: '<div><h2>{{quote.quote}}</h2><h3>~{{quote.author}}</h3><h3>BC: {{this.bcValue.to_quantity}}</h3></div>'
 })
 export class QuoteComponent {
@@ -16,7 +18,7 @@ export class QuoteComponent {
     private headerString : string;
     private bcValue = {};
 
-    constructor(private http: Http) {
+    constructor(private http: Http, private apiService: ApiService) {
 
         this.getRandomQuote();
         this.getBitcoinValue();        
@@ -24,26 +26,7 @@ export class QuoteComponent {
 
     private getBitcoinValue() {
 
-        this.requestUrl = 'https://bravenewcoin-v1.p.mashape.com/convert?from=btc&qty=1&to=usd';
-
-        var localHeaders = new Headers({     
-            
-            'X-Mashape-Key' : 'AXcYZwz5QLmshkiUwJauIltVntULp1LmwjJjsnSQjDK1xB15p7',
-            'Accept' : 'application/json'
-
-        }); 
-
-        var requestOptions = new RequestOptions({
-            method : RequestMethod.Post,
-            url: this.requestUrl,
-            headers: localHeaders
-        });
-
-
-        let response = this.http.request(this.requestUrl, requestOptions).
-        map(this.mapResponse).
-        catch(this.handleError).
-        subscribe(value => this.bcValue = value);
+        this.apiService.GetBitcoinValue().subscribe(value => this.bcValue = value);
     }
 
     private getRandomQuote() {
