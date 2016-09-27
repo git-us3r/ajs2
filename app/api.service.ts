@@ -66,6 +66,30 @@ export class ApiService {
         return response;
     }
 
+    public GetMyIp() : Observalbe<string> {
+
+        let requestUrl = 'https://mark-sutuer-ip-utils.p.mashape.com/api.php?_method=getMyIp';
+
+        let localHeaders = new Headers({     
+            
+            'X-Mashape-Key' : 'AXcYZwz5QLmshkiUwJauIltVntULp1LmwjJjsnSQjDK1xB15p7',
+            'Accept' : 'text/plain',
+            }); 
+
+        let requestOptions = new RequestOptions({
+            method : RequestMethod.Post,
+            url: requestUrl,
+            headers: localHeaders
+        });
+
+
+        let response = this.http.request(requestUrl, requestOptions).
+        map(this.mapResponse).
+        catch(this.handleError)
+
+        return response;
+    }
+
 
     /// Mapping/Error-handling
 
