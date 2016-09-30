@@ -4,12 +4,12 @@ import { Quote } from './quote';
 import { ApiService } from './api.service';
 
 @Component({
-    selector: 'my-quote',
-    templateUrl: 'app/quote.component.html'
+    selector: 'my-ip',
+    templateUrl: 'app/my-ip.component.html'
 })
-export class QuoteComponent implements OnInit {
+export class MyIpComponent implements OnInit {
 
-    private quote : Quote;
+    private ip : string;
 
     constructor(private apiService: ApiService) {
 
@@ -18,8 +18,8 @@ export class QuoteComponent implements OnInit {
 
     ngOnInit() : void {
 
-        this.apiService.GetRandomQuote().
-        subscribe((quote : Quote) => this.quote = quote);
+        this.apiService.GetMyIp().
+        subscribe(IP => this.ip = IP['myIp']);
     }
 
 }

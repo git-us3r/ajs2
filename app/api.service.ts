@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Request, Response, RequestOptions, RequestMethod, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 import { Observable } from 'rxjs/Observable';
 import { Quote } from './quote';
 
@@ -66,7 +67,7 @@ export class ApiService {
         return response;
     }
 
-    public GetMyIp() : Observalbe<string> {
+    public GetMyIp() : Observable<string> {
 
         let requestUrl = 'https://mark-sutuer-ip-utils.p.mashape.com/api.php?_method=getMyIp';
 
@@ -77,7 +78,7 @@ export class ApiService {
             }); 
 
         let requestOptions = new RequestOptions({
-            method : RequestMethod.Post,
+            method : RequestMethod.Get,
             url: requestUrl,
             headers: localHeaders
         });
