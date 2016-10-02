@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { Quote } from './quote';
 import { ApiService } from './api.service';
 
 @Component({

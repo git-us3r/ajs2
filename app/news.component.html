@@ -1,0 +1,9 @@
+<div *ngIf="categoryCollection" class="card card-block">
+    
+    <h3 class="card-title">News</h3>
+    <h5 class="card-subtitle">News Categories</h5>
+
+    <div class="card card-block" *ngFor="let category of categoryCollection">
+        <h5 class="card-title"> {{ category.webTitle }} </h5>
+    </div>
+</div>

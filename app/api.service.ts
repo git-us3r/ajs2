@@ -91,6 +91,23 @@ export class ApiService {
         return response;
     }
 
+    public GetGuardianNewsByCategory() : Observable<any> {
+
+        let apiKey = '8813f672-f080-4550-a75f-746b904344ba';
+        let requestUrl = 'http://content.guardianapis.com/sections?l&api-key=' + apiKey;
+
+        let requestOptions = new RequestOptions({
+            method : RequestMethod.Get,
+            url: requestUrl,
+        });
+
+        let response = this.http.request(requestUrl, requestOptions).
+        map(this.mapResponse).
+        catch(this.handleError)
+
+        return response;
+    }
+
 
     /// Mapping/Error-handling
 
