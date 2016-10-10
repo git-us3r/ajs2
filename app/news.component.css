@@ -1,0 +1,22 @@
+.my-card,
+.my-card {
+    
+    -webkit-transition: all linear 3s; /* For Safari 3.1 to 6.0 */
+    -moz-transition: all linear 3s; /* For Firefox */
+    transition: all linear 3s;
+
+    -webkit-transition-delay: 3s; /* For Safari 3.1 to 6.0 */
+    -moz-transition-delay: 3s; /* For Firefox */
+    transition-delay: 3s;
+
+
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
