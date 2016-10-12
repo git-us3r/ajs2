@@ -7,23 +7,32 @@ import { ApiService } from './api.service';
     selector: 'news',
     templateUrl: 'app/news.component.html',
     styleUrls: ['app/news.component.css'],
-    animations: [trigger(
-      'openClose',
-      [
-        state('collapsed, void', style({opacity: '0'})),
-        state('expanded', style({opacity: '1'})),
-        transition(
-            'collapsed <=> expanded', [animate(500)])
-      ])],
+    animations: [trigger('flyInOut', [
+        state('in', style({opacity: 1, transform: 'translateX(0)'})),
+        transition('void => *', [
+          style({
+            opacity: 0,
+            transform: 'translateX(-100%)'
+          }),
+          animate('0.2s ease-in')
+        ]),
+        transition('* => void', [
+          animate('0.2s 10 ease-out', style({
+            opacity: 0,
+            transform: 'translateX(100%)'
+          }))
+        ])
+      ]),
+    ],
 })
 export class NewsComponent implements OnInit {
 
-    private categoryCollection : any;
+    private categoryCollection : any[];
+    private displayCategoryCollection : any[];
     private stateExpression: string;  
      
     constructor(private apiService: ApiService) {
 
-        this._Collapse();
     }
 
     ngOnInit() : void {
@@ -44,7 +53,16 @@ export class NewsComponent implements OnInit {
     private _HandleCategoriesResponse(news : any) : void {
 
         this.categoryCollection = news.response.results;
-        window.setTimeout(this._Expand, 6000);
+        this.displayCategoryCollection = [];
+
+        for(var id in this.categoryCollection.slice(0,5)) {
+
+            var element = this.categoryCollection[id];
+            this.displayCategoryCollection.push(element);
+            console.log("pushed news category: " + element.webTitle);
+
+            setTimeout(function(_id = id){ console.log("waiting on: " + _id); }, 2000);     
+        }   
     }
 
     private _NavigateToUrl(url : string) : void {

@@ -1,11 +1,16 @@
-<div *ngIf="categoryCollection" class="card card-block my-card" [@openClose]="stateExpression">
+<div *ngIf="categoryCollection" class="card card-block">
     
     <h3 class="card-title">News</h3>
     <h5 class="card-subtitle">News Categories</h5>
-    <div class="container my-card">
+    <div class="card-block">
         <div class="card-columns">
-            <div class="card card-block my-card unselectable" *ngFor="let category of categoryCollection" (click)="_NavigateToUrl(category.webUrl)">
-                <h5 class="card-title"> {{ category.webTitle }} </h5>
+            <div class="container" *ngFor="let category of displayCategoryCollection">
+                <div class="card card-block unselectable" 
+                    *ngIf="category.webUrl"
+                    (click)="_NavigateToUrl(category.webUrl)" 
+                    [@flyInOut]="stateExpression">
+                    <p class="card-text"> {{ category.webTitle }} </p>
+                </div>
             </div>
         </div>
     </div>
