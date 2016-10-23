@@ -3,13 +3,15 @@
     <h3 class="card-title">News</h3>
     <h5 class="card-subtitle">News Categories</h5>
     <div class="card-block">
-        <div class="card-columns">
-            <div class="container" *ngFor="let category of displayCategoryCollection">
-                <div class="card card-block unselectable" 
-                    *ngIf="category.webUrl"
-                    (click)="_NavigateToUrl(category.webUrl)" 
-                    [@flyInOut]="stateExpression">
-                    <p class="card-text"> {{ category.webTitle }} </p>
+        <div class="container">
+            <div class="row" *ngFor="let category of displayCategoryCollection">
+                <div class="container-fluid" *ngIf="category.isVisible" [@flyInOut]="stateExpression">
+                    <div class="col-md-11 card card-block unselectable" (click)="_NavigateToUrl(category.webUrl)" >
+                        <p class="card-text"> {{ category.webTitle }} </p>
+                    </div>
+                    <div class="container-fluid col-md-1">
+                        <a (click)="_CloseNewsArticle(category)" class="btn btn-danger">X</a>
+                    </div>
                 </div>
             </div>
         </div>
